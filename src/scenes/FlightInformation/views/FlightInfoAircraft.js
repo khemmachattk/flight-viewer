@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from 'moment';
 
 export default class FlightInfoAircraft extends Component {
   render() {
@@ -9,12 +10,12 @@ export default class FlightInfoAircraft extends Component {
       let newResult = [...result];
       if (indexOfGroup === -1) {
         let group = { aircraftType: next.aircraft_type, weekdays: [0, 0, 0, 0, 0, 0, 0] };
-        let date = new Date(next.schedule_date);
-        group.weekdays[date.getDay()] += 1;
+        let date = moment(next.schedule_date, 'YYYY-MM-DD HH:mm');
+        group.weekdays[date.day()] += 1;
         newResult.push(group);
       } else {
-        let date = new Date(next.schedule_date);
-        newResult[indexOfGroup].weekdays[date.getDay()] += 1;
+        let date = moment(next.schedule_date, 'YYYY-MM-DD HH:mm');
+        newResult[indexOfGroup].weekdays[date.day()] += 1;
       }
       return newResult;
     }, [])

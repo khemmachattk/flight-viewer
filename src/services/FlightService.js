@@ -1,4 +1,5 @@
 import { isUndefined } from "util";
+import moment from 'moment';
 
 const dataFlights = require("../datasources/flights.json").flights;
 
@@ -7,7 +8,6 @@ export const FlightService = {
 };
 
 function searchFlight(searchOptions, completion) {
-  console.log(searchOptions);
   let results = dataFlights.filter(value => {
     return value.flight_type === searchOptions.flightType;
   });
@@ -18,10 +18,10 @@ function searchFlight(searchOptions, completion) {
     !isUndefined(searchOptions.dateTo) &&
     searchOptions.dateTo !== ""
   ) {
-    const dateFrom = new Date(searchOptions.dateFrom);
-    const dateTo = new Date(searchOptions.dateTo);
+    const dateFrom = moment(searchOptions.dateFrom, 'YYYY-MM-DD HH:mm');
+    const dateTo = moment(searchOptions.dateTo, 'YYYY-MM-DD HH:mm');
     results = results.filter(value => {
-      const flightDate = new Date(value.schedule_date);
+      const flightDate = moment(value.schedule_date, 'YYYY-MM-DD HH:mm');
       return flightDate >= dateFrom && flightDate <= dateTo;
     });
   }
@@ -57,6 +57,5 @@ function searchFlight(searchOptions, completion) {
     });
   }
 
-  console.log(results);
   completion(results);
 }

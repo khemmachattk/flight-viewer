@@ -77,6 +77,7 @@ export default class AppSearchForm extends Component {
               name="scheduleDateFrom"
               value={this.state.dateFrom}
               onChange={this._onDateFromChange.bind(this)}
+              placeholder="Date From"
             />
           </Form.Group>
           <Form.Group as={Col} sm="6" xs="12">
@@ -86,6 +87,7 @@ export default class AppSearchForm extends Component {
               name="scheduleDateTo"
               value={this.state.dateTo}
               onChange={this._onDateToChange.bind(this)}
+              placeholder="Date To"
             />
           </Form.Group>
         </Form.Row>
